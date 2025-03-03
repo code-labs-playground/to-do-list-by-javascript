@@ -16,37 +16,12 @@
 body {
     transition: background-color 0.3s, color 0.3s;
     padding: 20px;
-
-    .checkmark {
-        color: var(--bs-primary);
-        margin-right: 10px;
-    }
-
-    .container {
-        max-width: 700px;
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-
-            .theme-toggle {
-                background: none;
-                border: none;
-                font-size: 1.5rem;
-                cursor: pointer;
-                color: var(--bs-body-color);
-            }
-        }
-
-        .section-card {
-            margin-bottom: 20px;
-        }
-    }
 }
 
-
+.checkmark {
+    color: var(--bs-primary);
+    margin-right: 10px;
+}
 
 .task-item {
     transition: background-color 0.2s;
