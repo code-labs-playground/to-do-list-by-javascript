@@ -27,5 +27,11 @@ $(document).ready(function() {
     const $tasksCardBody = $('<div>').addClass('card-body p-0').appendTo($tasksCard);
     const $tasksList = $('<ul>').attr('id', 'task-list').addClass('list-group list-group-flush').appendTo($tasksCardBody);
 
+    const $completedCard = $('<div>').addClass('card mb-4').appendTo($container);
+    const $completedCardHeader = $('<div>').addClass('card-header bg-transparent')
+        .html('<h5 class="mb-0"><i class="bi bi-check2-all me-2"></i>Completed Items</h5>').appendTo($completedCard);
+    const $completedCardBody = $('<div>').addClass('card-body p-0').appendTo($completedCard);
+    const $completedList = $('<ul>').attr('id', 'completed-list').addClass('list-group list-group-flush').appendTo($completedCardBody);
+
 
 });
