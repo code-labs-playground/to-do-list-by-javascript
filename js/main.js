@@ -74,5 +74,59 @@ $(document).ready(function() {
         }
     }
 
+    function renderTasks() {
+        $tasksList.empty();
+
+        if (tasks.length === 0) {
+            $tasksList.append(
+                $('<li>').addClass('list-group-item text-center text-muted')
+                    .text('No tasks yet. Add a task above!')
+            );
+            return;
+        }
+
+        tasks.forEach((task, index) => {
+            const $li = $('<li>').addClass('list-group-item task-item d-flex justify-content-between align-items-center');
+
+            const $taskContent = $('<div>').addClass('form-check');
+            const $checkbox = $('<input>').attr({
+                type: 'checkbox',
+                class: 'form-check-input',
+                id: 'task-' + index
+            });
+            const $taskText = $('<label>')
+                .addClass('form-check-label task-text ms-2')
+                .attr('for', 'task-' + index)
+                .text(task);
+
+            const $taskActions = $('<div>');
+            const $deleteBtn = $('<button>')
+                .addClass('btn btn-link p-0 delete-btn')
+                .html('<i class="bi bi-trash"></i>');
+
+            $taskContent.append($checkbox, $taskText);
+            $taskActions.append($deleteBtn);
+            $li.append($taskContent, $taskActions);
+
+            $tasksList.append($li);
+
+            $checkbox.on('change', function() {
+                if (this.checked) {
+                    completedTasks.push(task);
+                    tasks.splice(index, 1);
+                    saveTasks();
+                    renderTasks();
+                    renderCompletedTasks();
+                }
+            });
+
+            $deleteBtn.on('click', function() {
+                tasks.splice(index, 1);
+                saveTasks();
+                renderTasks();
+            });
+        });
+    }
+
 
 });
