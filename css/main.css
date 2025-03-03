@@ -17,6 +17,11 @@ body {
     transition: background-color 0.3s, color 0.3s;
     padding: 20px;
 
+    .checkmark {
+        color: var(--bs-primary);
+        margin-right: 10px;
+    }
+
     .container {
         max-width: 700px;
 
@@ -39,4 +44,31 @@ body {
             margin-bottom: 20px;
         }
     }
+}
+
+
+
+.task-item {
+    transition: background-color 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.task-item:hover {
+    background-color: var(--task-item-hover);
+    border-left: 3px solid var(--bs-primary);
+}
+
+.completed .task-text {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.delete-btn {
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.delete-btn:hover {
+    opacity: 1;
+    color: #dc3545;
 }
