@@ -128,5 +128,63 @@ $(document).ready(function() {
         });
     }
 
+    function renderCompletedTasks() {
+        $completedList.empty();
 
+        if (completedTasks.length === 0) {
+            $completedList.append(
+                $('<li>').addClass('list-group-item text-center text-muted')
+                    .text('No completed tasks yet!')
+            );
+            return;
+        }
+
+        completedTasks.forEach((task, index) => {
+            const $li = $('<li>').addClass('list-group-item task-item completed d-flex justify-content-between align-items-center');
+
+            const $taskContent = $('<div>').addClass('form-check');
+            const $checkbox = $('<input>').attr({
+                type: 'checkbox',
+                class: 'form-check-input',
+                id: 'completed-' + index,
+                checked: true
+            });
+            const $taskText = $('<label>')
+                .addClass('form-check-label task-text ms-2')
+                .attr('for', 'completed-' + index)
+                .text(task);
+
+            const $taskActions = $('<div>');
+            const $deleteBtn = $('<button>')
+                .addClass('btn btn-link p-0 delete-btn')
+                .html('<i class="bi bi-trash"></i>');
+
+            $taskContent.append($checkbox, $taskText);
+            $taskActions.append($deleteBtn);
+            $li.append($taskContent, $taskActions);
+
+            $completedList.append($li);
+
+            $checkbox.on('change', function() {
+                if (!this.checked) {
+                    tasks.push(task);
+                    completedTasks.splice(index, 1);
+                    saveTasks();
+                    renderTasks();
+                    renderCompletedTasks();
+                }
+            });
+
+            $deleteBtn.on('click', function() {
+                completedTasks.splice(index, 1);
+                saveTasks();
+                renderCompletedTasks();
+            });
+        });
+    }
+
+    function saveTasks() {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+    }
 });
