@@ -33,5 +33,46 @@ $(document).ready(function() {
     const $completedCardBody = $('<div>').addClass('card-body p-0').appendTo($completedCard);
     const $completedList = $('<ul>').attr('id', 'completed-list').addClass('list-group list-group-flush').appendTo($completedCardBody);
 
+    if (localStorage.getItem('darkMode') === 'true') {
+        $('body').addClass('dark-mode');
+        $themeToggle.find('i').removeClass('bi-moon-fill').addClass('bi-sun-fill');
+    }
+
+    renderTasks();
+    renderCompletedTasks();
+
+    $themeToggle.on('click', function() {
+        $('body').toggleClass('dark-mode');
+        const isDarkMode = $('body').hasClass('dark-mode');
+
+        if (isDarkMode) {
+            $(this).find('i').removeClass('bi-moon-fill').addClass('bi-sun-fill');
+        } else {
+            $(this).find('i').removeClass('bi-sun-fill').addClass('bi-moon-fill');
+        }
+
+        localStorage.setItem('darkMode', isDarkMode);
+    });
+
+    $addButton.on('click', function() {
+        addTask();
+    });
+
+    $input.on('keypress', function(e) {
+        if (e.which === 13) {
+            addTask();
+        }
+    });
+
+    function addTask() {
+        const taskText = $input.val().trim();
+        if (taskText !== '') {
+            tasks.push(taskText);
+            saveTasks();
+            renderTasks();
+            $input.val('').focus();
+        }
+    }
+
 
 });
